@@ -17,6 +17,7 @@
         "root": ["./src"],
         "alias": {
           "@Component": "./src/Components",
+          "@Style": "./src/Styles",
           "@Ui": "./src/Ui"
         }
       }
