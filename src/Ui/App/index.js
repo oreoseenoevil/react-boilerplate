@@ -1,10 +1,14 @@
 import React from 'react'
-import { HelloWorld } from '@Components/HelloWorld'
+import { Header } from '@Components/Header'
+import { Main } from '@Components/Main'
+import { Footer } from '@Components/Footer'
 
 export const App = () => {
   return (
-    <div>
-      <HelloWorld />
+    <div className="container">
+      <Header />
+      <Main />
+      <Footer />
     </div>
   )
 }

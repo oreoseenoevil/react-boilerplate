@@ -16,8 +16,10 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
+  "parser": "babel-eslint",
   "plugins": [
-    "react"
+    "react",
+    "react-hooks"
   ],
   "rules": {
     "camelcase": ["error", { "properties": "never" }],
@@ -43,6 +45,8 @@
       "ignoredNodes": ["TemplateLiteral *"]
     }],
     "react/prop-types": 0,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
     "quotes": [
       "error",
       "single"
