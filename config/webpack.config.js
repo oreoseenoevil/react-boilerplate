@@ -1,35 +1,59 @@
 const path = require('path')
-const webpack = require('webpack')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
 
 const CURRENT_WORKING_DIR = process.cwd()
 
-module.exports = {
-  mode: 'development',
+const config = {
+  entry: [path.join(CURRENT_WORKING_DIR, 'client/app/index.js')],
   output: {
     path: path.join(CURRENT_WORKING_DIR, 'dist'),
-    filename: '[name].js'
+    filename: '[name].js',
   },
-  devtool: 'eval-source-map',
+  resolve: {
+    extensions: ['.js', '.json', '.css', '.scss', '.html'],
+    alias: {
+      app: 'client/app'
+    }
+  },
+  performance: {
+    hints: false
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.join(CURRENT_WORKING_DIR, 'client/public/index.html')
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'client/public/assets',
+          to:'assets'
+        }
+      ]
+    })
+  ],
   module: {
     rules: [
       {
-        test: /\.(scss|sass|css)$/,
+        test: /\.(js|jsx)$/,
+        use: {
+          loader: 'babel-loader'
+        },
+        exclude: /(node_modules)/
+      },
+      {
+        test: /\.s[ac]ss$/i,
         use: [
           'style-loader',
-          {
-            loader: 'css-loader'
-          },
+          'css-loader',
+          'sass-loader',
           {
             loader: 'postcss-loader',
             options: {
-              postcssOptions: {
-                plugins: () => [require('autoprefixer')]
-              }
+              sourceMap: true
             }
-          },
-          {
-            loader: 'sass-loader'
           }
         ]
       },
@@ -67,21 +91,7 @@ module.exports = {
         ]
       }
     ]
-  },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-      template: path.join(CURRENT_WORKING_DIR, 'client/public/index.html'),
-      inject: true
-    })
-  ],
-  devServer: {
-    port: 5000,
-    hot: true,
-    open: true,
-    inline: true,
-    compress: true,
-    noInfo: true,
-    disableHostCheck: false
   }
 }
+
+module.exports = config
