@@ -4,9 +4,11 @@
       "@babel/preset-env",
       {
         "targets": {
-          "chrome": "58",
-          "ie": "11"
-        }
+          "esmodules": true
+        },
+        "modules": false,
+        "useBuiltIns": "usage",
+        "corejs": "3.0.0"
       }
     ],
     ["@babel/preset-react"]
@@ -14,12 +16,9 @@
   "plugins": [
     [
       "module-resolver", {
-        "root": ["./src"],
+        "root": ["./client"],
         "alias": {
-          "@Components": "./src/Components",
-          "@Context": "./src/Context",
-          "@Styles": "./src/Styles",
-          "@Ui": "./src/Ui"
+          "@App": "./client/app/App"
         }
       }
     ]
