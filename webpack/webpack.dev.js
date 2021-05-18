@@ -27,6 +27,39 @@ module.exports = {
           }
         ]
       },
+      {
+        test: /\.svg$/,
+        use: {
+          loader: 'svg-url-loader',
+          options: {
+            encoding: 'base64'
+          }
+        }
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|ico)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: 'images',
+              name: '[name].[ext]'
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: 'fonts',
+              name: '[name].[ext]'
+            }
+          }
+        ]
+      }
     ]
   },
   plugins: [
