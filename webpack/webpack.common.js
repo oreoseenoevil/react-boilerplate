@@ -1,11 +1,9 @@
 const path = require('path')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const webpack = require('webpack')
 
 const CURRENT_WORKING_DIR = process.cwd()
 
-const config = {
+module.exports = {
   entry: [path.join(CURRENT_WORKING_DIR, 'client/app/index.js')],
   output: {
     path: path.join(CURRENT_WORKING_DIR, 'dist'),
@@ -21,10 +19,6 @@ const config = {
     hints: false
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-      template: path.join(CURRENT_WORKING_DIR, 'client/public/index.html')
-    }),
     new CopyWebpackPlugin({
       patterns: [
         {
@@ -42,20 +36,6 @@ const config = {
           loader: 'babel-loader'
         },
         exclude: /(node_modules)/
-      },
-      {
-        test: /\.s[ac]ss$/i,
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              sourceMap: true
-            }
-          }
-        ]
       },
       {
         test: /\.svg$/,
@@ -93,5 +73,3 @@ const config = {
     ]
   }
 }
-
-module.exports = config
